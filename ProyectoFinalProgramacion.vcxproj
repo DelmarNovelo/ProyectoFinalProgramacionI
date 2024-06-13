@@ -145,6 +145,11 @@
     <ClInclude Include="AirplaneDAO.h" />
     <ClInclude Include="Airport.h" />
     <ClInclude Include="AirportDAO.h" />
+    <ClInclude Include="BoardingPass.h" />
+    <ClInclude Include="BoardingPassDAO.h" />
+    <ClInclude Include="BoardingPassDetails.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Flight.h" />
     <ClInclude Include="FlightDAO.h" />
     <ClInclude Include="FlightDetails.h">
@@ -162,11 +167,8 @@
     <ClInclude Include="PassengersContainer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="ContenedorVuelos.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="DataBaseManager.h" />
-    <ClInclude Include="EditarPasajeroDialog.h">
+    <ClInclude Include="EditPassengerDialog.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Form1.h">
@@ -175,7 +177,7 @@
     <ClInclude Include="Passenger.h" />
     <ClInclude Include="PassengerDAO.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="RegistrarPasajeroDialog.h">
+    <ClInclude Include="NewPassengerDialog.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Reservation.h" />
@@ -191,6 +193,9 @@
     <ClCompile Include="Airport.cpp" />
     <ClCompile Include="AirportDAO.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="BoardingPass.cpp" />
+    <ClCompile Include="BoardingPassDAO.cpp" />
+    <ClCompile Include="BoardingPassDetails.cpp" />
     <ClCompile Include="Flight.cpp" />
     <ClCompile Include="FlightDAO.cpp" />
     <ClCompile Include="FlightDetails.cpp" />
@@ -198,10 +203,9 @@
     <ClCompile Include="NewFlightDialog.cpp" />
     <ClCompile Include="NewReservationDialog.cpp" />
     <ClCompile Include="PassengersContainer.cpp" />
-    <ClCompile Include="ContenedorVuelos.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="DataBaseManager.cpp" />
-    <ClCompile Include="EditarPasajeroDialog.cpp" />
+    <ClCompile Include="EditPassengerDialog.cpp" />
     <ClCompile Include="Form1.cpp" />
     <ClCompile Include="Passenger.cpp" />
     <ClCompile Include="PassengerDAO.cpp" />
@@ -211,7 +215,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="RegistrarPasajeroDialog.cpp" />
+    <ClCompile Include="NewPassengerDialog.cpp" />
     <ClCompile Include="Reservation.cpp" />
     <ClCompile Include="ReservationDAO.cpp" />
   </ItemGroup>
@@ -229,6 +233,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BoardingPassDetails.resx">
+      <DependentUpon>BoardingPassDetails.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FlightDetails.resx">
       <DependentUpon>FlightDetails.h</DependentUpon>
     </EmbeddedResource>
@@ -244,17 +251,14 @@
     <EmbeddedResource Include="PassengersContainer.resx">
       <DependentUpon>PassengersContainer.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ContenedorVuelos.resx">
-      <DependentUpon>ContenedorVuelos.h</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditarPasajeroDialog.resx">
-      <DependentUpon>EditarPasajeroDialog.h</DependentUpon>
+    <EmbeddedResource Include="EditPassengerDialog.resx">
+      <DependentUpon>EditPassengerDialog.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistrarPasajeroDialog.resx">
-      <DependentUpon>RegistrarPasajeroDialog.h</DependentUpon>
+    <EmbeddedResource Include="NewPassengerDialog.resx">
+      <DependentUpon>NewPassengerDialog.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -83,6 +83,7 @@ namespace CppCLRWinFormsProject {
 			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
+			this->panel1->AutoSize = true;
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Location = System::Drawing::Point(12, 2);
 			this->panel1->Name = L"panel1";
@@ -95,14 +96,15 @@ namespace CppCLRWinFormsProject {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Gadugi", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 15.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->ForeColor = System::Drawing::Color::Crimson;
+			this->label1->ForeColor = System::Drawing::Color::Teal;
 			this->label1->Location = System::Drawing::Point(408, 7);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(260, 21);
+			this->label1->Size = System::Drawing::Size(476, 25);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"AEROLINEAS LA VOLADORA";
+			this->label1->Text = L"AEROPUERTO INTERNACIONAL MUNDO MAYA";
+			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// panel2
 			// 
@@ -116,6 +118,7 @@ namespace CppCLRWinFormsProject {
 			// button2
 			// 
 			this->button2->BackColor = System::Drawing::Color::OrangeRed;
+			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button2->ForeColor = System::Drawing::Color::White;
 			this->button2->Location = System::Drawing::Point(184, 14);
@@ -129,6 +132,7 @@ namespace CppCLRWinFormsProject {
 			// button1
 			// 
 			this->button1->BackColor = System::Drawing::Color::OrangeRed;
+			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->button1->ForeColor = System::Drawing::Color::White;
 			this->button1->Location = System::Drawing::Point(52, 14);
@@ -159,13 +163,14 @@ namespace CppCLRWinFormsProject {
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
 			this->Name = L"Form1";
-			this->Text = L"Form1";
+			this->Text = L"Proyecto Final Programacion I";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			this->panel2->ResumeLayout(false);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 		
@@ -193,7 +198,6 @@ namespace CppCLRWinFormsProject {
 		}
 
 		private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-			//this->loadForm(gcnew ProyectoFinalProgramacion::FlightsContainer);
 
 			ProyectoFinalProgramacion::FlightsContainer^ flightsContainer = gcnew ProyectoFinalProgramacion::FlightsContainer();
 			flightsContainer->LoadFormEvent += gcnew LoadFormEventHandler(this, &Form1::OnLoadFormEvent);

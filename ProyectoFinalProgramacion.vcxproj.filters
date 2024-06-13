@@ -29,13 +29,10 @@
     <ClInclude Include="Form1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ContenedorVuelos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PassengersContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RegistrarPasajeroDialog.h">
+    <ClInclude Include="NewPassengerDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataBaseManager.h">
@@ -44,7 +41,7 @@
     <ClInclude Include="PassengerDAO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditarPasajeroDialog.h">
+    <ClInclude Include="EditPassengerDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Passenger.h">
@@ -95,6 +92,15 @@
     <ClInclude Include="ReservationDAO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BoardingPassDAO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardingPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardingPassDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -109,13 +115,10 @@
     <ClCompile Include="Form1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ContenedorVuelos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PassengersContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RegistrarPasajeroDialog.cpp">
+    <ClCompile Include="NewPassengerDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DataBaseManager.cpp">
@@ -124,7 +127,7 @@
     <ClCompile Include="PassengerDAO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditarPasajeroDialog.cpp">
+    <ClCompile Include="EditPassengerDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Passenger.cpp">
@@ -170,6 +173,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ReservationDAO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardingPassDAO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardingPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardingPassDetails.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

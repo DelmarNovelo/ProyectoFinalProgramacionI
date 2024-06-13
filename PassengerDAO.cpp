@@ -93,7 +93,7 @@ List<Passenger^>^ PassengerDAO::searchPassengers(String^ searchTerm, DataBaseMan
     return passengers;
 }
 
-Passenger^ PassengerDAO::getPassengerDetailsForEditting(int passengerId, DataBaseManager^ dbManager) {
+Passenger^ PassengerDAO::getPassengerDetails(int passengerId, DataBaseManager^ dbManager) {
     try {
         dbManager->connect();
 

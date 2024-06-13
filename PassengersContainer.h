@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RegistrarPasajeroDialog.h"
+#include "NewPassengerDialog.h"
 #include "DataBaseManager.h"
-#include "EditarPasajeroDialog.h"
+#include "EditPassengerDialog.h"
 
 namespace ProyectoFinalProgramacion {
 
@@ -23,26 +23,32 @@ namespace ProyectoFinalProgramacion {
 		{
 			InitializeComponent();
 			InitializeCustomComponents();
+
+			// Crea una nueva instancia del administrador de base de datos
 			dbManager = gcnew DataBaseManager();
 		}
 
+	private:
+		// Declaración de un miembro privado para manejar la conexión con la base de datos
+		DataBaseManager^ dbManager;
+
 	public:
 
-
-
-
-
-	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ nombre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ apellido;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ telefono;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ pasaporte;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fecha_nacimiento;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ id;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ first_name;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ last_name;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ phone;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ passport_number;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ birth_date;
 
 
-	private: 
-		DataBaseManager^ dbManager;
+
 
 	protected:
 		/// <summary>
@@ -73,15 +79,18 @@ namespace ProyectoFinalProgramacion {
 		/// </summary>
 	void InitializeComponent(void)
 	{
+		System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle13 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+		System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle15 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+		System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle14 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 		this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-		this->btnCrearPasajero = (gcnew System::Windows::Forms::Button());
-		this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 		this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-		this->nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-		this->apellido = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-		this->telefono = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-		this->pasaporte = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-		this->fecha_nacimiento = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+		this->first_name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+		this->last_name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+		this->phone = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+		this->passport_number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+		this->birth_date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+		this->btnCrearPasajero = (gcnew System::Windows::Forms::Button());
+		this->label1 = (gcnew System::Windows::Forms::Label());
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 		this->SuspendLayout();
 		// 
@@ -92,14 +101,28 @@ namespace ProyectoFinalProgramacion {
 			| System::Windows::Forms::AnchorStyles::Left)
 			| System::Windows::Forms::AnchorStyles::Right));
 		this->dataGridView1->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+		this->dataGridView1->BackgroundColor = System::Drawing::Color::White;
+		this->dataGridView1->BorderStyle = System::Windows::Forms::BorderStyle::None;
+		dataGridViewCellStyle13->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+		dataGridViewCellStyle13->BackColor = System::Drawing::SystemColors::Control;
+		dataGridViewCellStyle13->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(0)));
+		dataGridViewCellStyle13->ForeColor = System::Drawing::Color::Teal;
+		dataGridViewCellStyle13->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+		dataGridViewCellStyle13->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+		dataGridViewCellStyle13->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+		this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
 		this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 		this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
-			this->id, this->nombre,
-				this->apellido, this->telefono, this->pasaporte, this->fecha_nacimiento
+			this->id, this->first_name,
+				this->last_name, this->phone, this->passport_number, this->birth_date
 		});
 		this->dataGridView1->Location = System::Drawing::Point(13, 68);
 		this->dataGridView1->Margin = System::Windows::Forms::Padding(4);
 		this->dataGridView1->Name = L"dataGridView1";
+		dataGridViewCellStyle15->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
+			System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+		this->dataGridView1->RowsDefaultCellStyle = dataGridViewCellStyle15;
 		this->dataGridView1->RowTemplate->Height = 35;
 		this->dataGridView1->RowTemplate->ReadOnly = true;
 		this->dataGridView1->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::False;
@@ -107,12 +130,55 @@ namespace ProyectoFinalProgramacion {
 		this->dataGridView1->TabIndex = 0;
 		this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &PassengersContainer::dataGridView1_CellContentClick);
 		// 
+		// id
+		// 
+		this->id->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
+		dataGridViewCellStyle14->BackColor = System::Drawing::Color::White;
+		dataGridViewCellStyle14->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(0)));
+		this->id->DefaultCellStyle = dataGridViewCellStyle14;
+		this->id->FillWeight = 143.1472F;
+		this->id->Frozen = true;
+		this->id->HeaderText = L"ID";
+		this->id->Name = L"id";
+		this->id->Width = 60;
+		// 
+		// first_name
+		// 
+		this->first_name->FillWeight = 91.37057F;
+		this->first_name->HeaderText = L"NOMBRE";
+		this->first_name->Name = L"first_name";
+		// 
+		// last_name
+		// 
+		this->last_name->FillWeight = 91.37057F;
+		this->last_name->HeaderText = L"APELLIDO";
+		this->last_name->Name = L"last_name";
+		// 
+		// phone
+		// 
+		this->phone->FillWeight = 91.37057F;
+		this->phone->HeaderText = L"TELEFONO";
+		this->phone->Name = L"phone";
+		// 
+		// passport_number
+		// 
+		this->passport_number->FillWeight = 91.37057F;
+		this->passport_number->HeaderText = L"PASAPORTE";
+		this->passport_number->Name = L"passport_number";
+		// 
+		// birth_date
+		// 
+		this->birth_date->FillWeight = 91.37057F;
+		this->birth_date->HeaderText = L"FECHA NACIMIENTO";
+		this->birth_date->Name = L"birth_date";
+		// 
 		// btnCrearPasajero
 		// 
 		this->btnCrearPasajero->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-		this->btnCrearPasajero->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
+		this->btnCrearPasajero->BackColor = System::Drawing::Color::Teal;
 		this->btnCrearPasajero->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-		this->btnCrearPasajero->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+		this->btnCrearPasajero->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 			static_cast<System::Byte>(0)));
 		this->btnCrearPasajero->ForeColor = System::Drawing::Color::White;
 		this->btnCrearPasajero->Location = System::Drawing::Point(880, 22);
@@ -120,63 +186,31 @@ namespace ProyectoFinalProgramacion {
 		this->btnCrearPasajero->Name = L"btnCrearPasajero";
 		this->btnCrearPasajero->Size = System::Drawing::Size(228, 38);
 		this->btnCrearPasajero->TabIndex = 1;
-		this->btnCrearPasajero->Text = L"REGISTRAR PASAJERO";
+		this->btnCrearPasajero->Text = L"Registrar Pasajero";
 		this->btnCrearPasajero->UseVisualStyleBackColor = false;
 		this->btnCrearPasajero->Click += gcnew System::EventHandler(this, &PassengersContainer::btnCrearPasajero_Click);
 		// 
-		// textBox1
+		// label1
 		// 
-		this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-		this->textBox1->Location = System::Drawing::Point(13, 39);
-		this->textBox1->Name = L"textBox1";
-		this->textBox1->Size = System::Drawing::Size(815, 22);
-		this->textBox1->TabIndex = 2;
-		// 
-		// id
-		// 
-		this->id->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-		this->id->FillWeight = 143.1472F;
-		this->id->Frozen = true;
-		this->id->HeaderText = L"ID";
-		this->id->Name = L"id";
-		this->id->Width = 60;
-		// 
-		// nombre
-		// 
-		this->nombre->FillWeight = 91.37057F;
-		this->nombre->HeaderText = L"NOMBRE";
-		this->nombre->Name = L"first_name";
-		// 
-		// apellido
-		// 
-		this->apellido->FillWeight = 91.37057F;
-		this->apellido->HeaderText = L"APELLIDO";
-		this->apellido->Name = L"last_name";
-		// 
-		// telefono
-		// 
-		this->telefono->FillWeight = 91.37057F;
-		this->telefono->HeaderText = L"TELEFONO";
-		this->telefono->Name = L"phone";
-		// 
-		// pasaporte
-		// 
-		this->pasaporte->FillWeight = 91.37057F;
-		this->pasaporte->HeaderText = L"PASAPORTE";
-		this->pasaporte->Name = L"passport_number";
-		// 
-		// fecha_nacimiento
-		// 
-		this->fecha_nacimiento->FillWeight = 91.37057F;
-		this->fecha_nacimiento->HeaderText = L"FECHA NACIMIENTO";
-		this->fecha_nacimiento->Name = L"birth_date";
+		this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+			| System::Windows::Forms::AnchorStyles::Left));
+		this->label1->AutoSize = true;
+		this->label1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			static_cast<System::Byte>(0)));
+		this->label1->ForeColor = System::Drawing::Color::Teal;
+		this->label1->Location = System::Drawing::Point(9, 27);
+		this->label1->Name = L"label1";
+		this->label1->Size = System::Drawing::Size(205, 23);
+		this->label1->TabIndex = 2;
+		this->label1->Text = L"Pasajeros registrados";
 		// 
 		// PassengersContainer
 		// 
 		this->AutoScaleDimensions = System::Drawing::SizeF(9, 16);
 		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+		this->BackColor = System::Drawing::Color::White;
 		this->ClientSize = System::Drawing::Size(1121, 485);
-		this->Controls->Add(this->textBox1);
+		this->Controls->Add(this->label1);
 		this->Controls->Add(this->btnCrearPasajero);
 		this->Controls->Add(this->dataGridView1);
 		this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
@@ -214,7 +248,7 @@ namespace ProyectoFinalProgramacion {
 	}
 
 	private: System::Void btnCrearPasajero_Click(System::Object^ sender, System::EventArgs^ e) {
-		RegistrarPasajeroDialog^ dialog = gcnew RegistrarPasajeroDialog();
+		NewPassengerDialog^ dialog = gcnew NewPassengerDialog();
 		dialog->ShowDialog();
 
 		llenarTabla();
@@ -241,31 +275,48 @@ namespace ProyectoFinalProgramacion {
 		}
 	}
 
+	// Método para llenar la tabla de pasajeros en el DataGridView
 	void llenarTabla() {
+		// Obtiene una DataTable con todos los pasajeros desde la base de datos
 		DataTable^ dt = PassengerDAO::getPassengers(dbManager);
+
+		// Limpia todas las filas actuales en el DataGridView
 		dataGridView1->Rows->Clear();
+
+		// Itera sobre cada fila en la DataTable
 		for each (DataRow ^ row in dt->Rows) {
+
+			// Añade una nueva fila al DataGridView con los datos del pasajero
 			dataGridView1->Rows->Add(row["id"], row["first_name"], row["last_name"], row["phone"], row["address"], row["birth_date"], row["passport_number"]);
 		}
 	}
 
+	// Método para abrir el diálogo de edición de pasajero
 	void openEditPassengerDialog(int passengerId) {
-		EditarPasajeroDialog^ editarPasajeroDialog = gcnew EditarPasajeroDialog(passengerId);
+
+		// Crea una nueva instancia del diálogo de edición de pasajero, pasando el ID del pasajero
+		EditPassengerDialog^ editarPasajeroDialog = gcnew EditPassengerDialog(passengerId);
+
+		// Muestra el diálogo de edición de pasajero de manera modal
 		editarPasajeroDialog->ShowDialog();
 
+		// Después de cerrar el diálogo, vuelve a llenar la tabla de pasajeros
 		llenarTabla();
 	}
 
-	void EditarPasajeroDialog_Closed() {
-		llenarTabla();
-	}
-
+	// Método para confirmar y eliminar un pasajero
 	void confirmDeletePassengerDialog(int passengerId) {
-		System::Windows::Forms::DialogResult result = MessageBox::Show("¿Estás seguro de eliminar el pasajero?", "Confirmar eliminación", MessageBoxButtons::OKCancel);
-	
+
+		// Muestra un cuadro de diálogo de confirmación para la eliminación del pasajero
+		System::Windows::Forms::DialogResult result = MessageBox::Show("¿Está seguro que desea eliminar el pasajero seleccionado?", "Confirmar eliminación", MessageBoxButtons::OKCancel);
+
+		// Si el usuario confirma
 		if (result == System::Windows::Forms::DialogResult::OK) {
+
+			// Elimina el pasajero de la base de datos usando su ID
 			PassengerDAO::deletePassenger(passengerId, dbManager);
 
+			// Vuelve a llenar la tabla de pasajeros
 			llenarTabla();
 		}
 	}

@@ -37,6 +37,7 @@ namespace ProyectoFinalProgramacion {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ airplane_model;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ origin_name;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ destination_name;
+	private: System::Windows::Forms::Label^ label1;
 
 
 	private:
@@ -77,6 +78,8 @@ namespace ProyectoFinalProgramacion {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->newFlightBtn = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->flight_number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -87,15 +90,16 @@ namespace ProyectoFinalProgramacion {
 			this->airplane_model = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->origin_name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->destination_name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// newFlightBtn
 			// 
 			this->newFlightBtn->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->newFlightBtn->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->newFlightBtn->BackColor = System::Drawing::Color::Teal;
 			this->newFlightBtn->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->newFlightBtn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->newFlightBtn->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->newFlightBtn->ForeColor = System::Drawing::Color::White;
 			this->newFlightBtn->Location = System::Drawing::Point(880, 22);
@@ -103,7 +107,7 @@ namespace ProyectoFinalProgramacion {
 			this->newFlightBtn->Name = L"newFlightBtn";
 			this->newFlightBtn->Size = System::Drawing::Size(228, 38);
 			this->newFlightBtn->TabIndex = 3;
-			this->newFlightBtn->Text = L"NUEVO VUELO";
+			this->newFlightBtn->Text = L"Registrar Vuelo";
 			this->newFlightBtn->UseVisualStyleBackColor = false;
 			this->newFlightBtn->Click += gcnew System::EventHandler(this, &FlightsContainer::newFlightBtn_Click);
 			// 
@@ -114,6 +118,17 @@ namespace ProyectoFinalProgramacion {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridView1->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridView1->BackgroundColor = System::Drawing::Color::White;
+			this->dataGridView1->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			dataGridViewCellStyle7->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle7->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle7->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle7->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle7->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle7->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle7->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(8) {
 				this->flight_number,
@@ -122,6 +137,9 @@ namespace ProyectoFinalProgramacion {
 			this->dataGridView1->Location = System::Drawing::Point(13, 68);
 			this->dataGridView1->Margin = System::Windows::Forms::Padding(4);
 			this->dataGridView1->Name = L"dataGridView1";
+			dataGridViewCellStyle8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->dataGridView1->RowsDefaultCellStyle = dataGridViewCellStyle8;
 			this->dataGridView1->RowTemplate->Height = 35;
 			this->dataGridView1->RowTemplate->ReadOnly = true;
 			this->dataGridView1->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::False;
@@ -177,11 +195,27 @@ namespace ProyectoFinalProgramacion {
 			this->destination_name->HeaderText = L"DESTINO";
 			this->destination_name->Name = L"destination_name";
 			// 
+			// label1
+			// 
+			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->ForeColor = System::Drawing::Color::Teal;
+			this->label1->Location = System::Drawing::Point(12, 27);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(178, 23);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"Vuelos registrados";
+			// 
 			// FlightsContainer
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(1121, 485);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->newFlightBtn);
 			this->Controls->Add(this->dataGridView1);
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
@@ -192,6 +226,7 @@ namespace ProyectoFinalProgramacion {
 			this->Load += gcnew System::EventHandler(this, &FlightsContainer::FlightsContainer_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 

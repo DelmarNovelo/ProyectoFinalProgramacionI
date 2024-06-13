@@ -11,7 +11,8 @@ void ReservationDAO::insertReservation(Reservation^ reservation, DataBaseManager
 	{
 		dbManager->connect();
 
-		String^ query = "INSERT INTO reservation (passenger_id, flight_id, price, reservation_date) VALUES (@passengerId, @flightId, @price, @reservationDate)";
+		String^ query = "INSERT INTO reservation (passenger_id, flight_id, price, reservation_date, booking_reference, ticket_number) " + 
+			"VALUES(@passengerId, @flightId, @price, @reservationDate, @bookingReference, @ticketNumber)";
 
 		MySqlCommand^ cmd = gcnew MySqlCommand(query, dbManager->getConnection());
 
@@ -19,6 +20,8 @@ void ReservationDAO::insertReservation(Reservation^ reservation, DataBaseManager
 		cmd->Parameters->AddWithValue("@flightId", reservation->FlightId);
 		cmd->Parameters->AddWithValue("@price", reservation->Price);
 		cmd->Parameters->AddWithValue("@reservationDate", reservation->ReservationDate);
+		cmd->Parameters->AddWithValue("@bookingReference", reservation->BookingReference);
+		cmd->Parameters->AddWithValue("@ticketNumber", reservation->TicketNumber);
 		
 		cmd->ExecuteNonQuery();
 

@@ -5,7 +5,7 @@ using namespace System;
 ref class Reservation
 {
 public:
-	Reservation(int passengerId, int flightId, double price, String^ reservationDate);
+	Reservation(int passengerId, int flightId, double price, String^ reservationDate, String^ bookingReference, String^ ticketNumber);
 
 	Reservation(String^ passengerName, String^ passportNumber, double price, String^ reservationDate);
 
@@ -72,6 +72,24 @@ public:
 		}
 	}
 
+	property String^ BookingReference {
+		String^ get() {
+			return bookingReference;
+		}
+		void set(String^ value) {
+			bookingReference = value;
+		}
+	}
+
+	property String^ TicketNumber {
+		String^ get() {
+			return ticketNumber;
+		}
+		void set(String^ value) {
+			ticketNumber = value;
+		}
+	}
+
 private:
 	property int id;
 	property int passengerId;
@@ -80,5 +98,7 @@ private:
 	property int flightId;
 	property double price;
 	property String^ reservationDate;
+	property String^ bookingReference;
+	property String^ ticketNumber;
 };
 
