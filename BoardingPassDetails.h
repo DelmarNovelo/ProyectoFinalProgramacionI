@@ -625,9 +625,11 @@ namespace ProyectoFinalProgramacion {
 			this->Controls->Add(this->panel1);
 			this->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->Name = L"BoardingPassDetails";
-			this->Text = L"BoardingPassDetails";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterParent;
+			this->Text = L"Detalles del Pase de Abordaje";
 			this->Load += gcnew System::EventHandler(this, &BoardingPassDetails::BoardingPassDetails_Load);
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
@@ -645,9 +647,12 @@ namespace ProyectoFinalProgramacion {
 	private: System::Void BoardingPassDetails_Load(System::Object^ sender, System::EventArgs^ e) {
 		try
 		{
+			// Intenta obtener los detalles del pase de abordar usando el ID de pase de abordar y el gestor de base de datos actual
 			BoardingPass^ boardingPassDetails = BoardingPassDAO::getBoardingPassDetails(this->boardingPassId, this->dbManager);
 
+			// Si se obtienen los detalles del pase de abordar correctamente
 			if (boardingPassDetails != nullptr) {
+				// Actualizar los controles de la ventana con los datos obtenidos del pase de abordar
 				this->nameLabel->Text = boardingPassDetails->PassengerName;
 				this->originLabel->Text = boardingPassDetails->OriginName;
 				this->dateLabel->Text = boardingPassDetails->ReservationDate;
@@ -663,14 +668,17 @@ namespace ProyectoFinalProgramacion {
 				this->seatLabel->Text = boardingPassDetails->SeatNumber;
 				this->airlineLabel->Text = boardingPassDetails->AirlineName;
 
+				// Llamar a la función para ajustar el tamaño del Label
 				this->labelAjust();
 			}
 			else {
+				// Si no se encuentran detalles del pase de abordar, cerrar la ventana
 				this->Close();
 			}
 		}
 		catch (Exception^ e)
 		{
+			// Capturar cualquier excepción que ocurra durante la carga y mostrar un mensaje de error
 			MessageBox::Show(e->Message);
 		}
 	}

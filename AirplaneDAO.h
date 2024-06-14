@@ -1,13 +1,14 @@
-#pragma once
-#include "DataBaseManager.h"
-#include "Airplane.h"
+#pragma once // Directiva de preprocesador para garantizar la inclusión única de este archivo
 
-using namespace System;
-using namespace System::Collections::Generic;
+#include "DataBaseManager.h" // Incluye la declaración de la clase DataBaseManager
+#include "Airplane.h" // Incluye la declaración de la clase Airplane
+
+using namespace System; // Espacio de nombres principal de System
+using namespace System::Collections::Generic; // Espacio de nombres para colecciones genéricas
 
 ref class AirplaneDAO
 {
 public:
-	static List<Airplane^>^ getAirplanes(DataBaseManager^ dbManager);
+    // Método estático para obtener la lista de aviones desde la base de datos
+    static List<Airplane^>^ getAirplanes(DataBaseManager^ dbManager);
 };
-

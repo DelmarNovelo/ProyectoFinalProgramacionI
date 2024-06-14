@@ -26,9 +26,6 @@ namespace ProyectoFinalProgramacion {
 			dbManager = gcnew DataBaseManager();
 			this->flightId = flightId;
 			this->passengerId = 0;
-			//
-			//TODO: agregar código de constructor aquí
-			//
 		}
 	private:
 		int flightId;

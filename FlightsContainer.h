@@ -242,12 +242,13 @@ namespace ProyectoFinalProgramacion {
 
 #pragma endregion
 
+	// Escucha los eventos al hacer click en los botones de la tabla
 	private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 		// Verifica que el clic no sea en el encabezado
 		if (e->RowIndex >= 0) {
 			String^ columnName = dataGridView1->Columns[e->ColumnIndex]->Name;
 
-			// Verificar si se hizo clic en el botón de Editar
+			// Verificar si se hizo clic en el botón de detalles
 			if (columnName == "details") {
 				int flightId = Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Tag);
 
@@ -257,6 +258,7 @@ namespace ProyectoFinalProgramacion {
 		}
 	}
 
+	// Abrir un dialogo para registrar un nuevo vuelo
 	private: System::Void newFlightBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 		NewFlightDialog^ newFlightDialog = gcnew NewFlightDialog();
 		newFlightDialog->ShowDialog();
@@ -268,6 +270,7 @@ namespace ProyectoFinalProgramacion {
 		}
 
 	   void llenarTabla() {
+		   // Consulta a la BD el listado de vuelos registrados
 		   DataTable^ dt = FlightDAO::getFlightsInTable(dbManager);
 		   dataGridView1->Rows->Clear();
 

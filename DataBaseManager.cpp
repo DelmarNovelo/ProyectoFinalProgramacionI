@@ -1,35 +1,41 @@
-#include "pch.h"
-#include "DataBaseManager.h"
-#include <iostream>
+#include "pch.h"  // Archivo de precompilado para Visual Studio
+#include "DataBaseManager.h"  // Incluye la declaración de la clase DataBaseManager
+#include <iostream>  // Incluye la librería estándar de C++ para entrada y salida
 
-using namespace std;
+using namespace std;  // Espacio de nombres estándar de C++
 
-using namespace System::Windows::Forms;
-using namespace MySql::Data::MySqlClient;
+using namespace System::Windows::Forms;  // Espacio de nombres para formularios de Windows
+using namespace MySql::Data::MySqlClient;  // Espacio de nombres para MySQL Connector/NET
 
+// Constructor de la clase DataBaseManager
 DataBaseManager::DataBaseManager() {
-	this->connectionString = "Server=localhost;port=3306;database=proyecto_final_programacion;uid=delmar;password=D39LKC#LS992@SLD8";
-	this->conn = gcnew MySqlConnection(this->connectionString);
+    // Configura la cadena de conexión a la base de datos MySQL
+    this->connectionString = "Server=localhost;port=3306;database=proyecto_final_programacion;uid=delmar;password=D39LKC#LS992@SLD8";
+    // Crea una nueva instancia de MySqlConnection utilizando la cadena de conexión
+    this->conn = gcnew MySqlConnection(this->connectionString);
 }
 
+// Método para establecer la conexión a la base de datos
 void DataBaseManager::connect() {
     try {
-        this->conn->Open();
+        this->conn->Open();  // Abre la conexión
     }
     catch (Exception^ e) {
-        MessageBox::Show("Error conectando");
+        MessageBox::Show("Error conectando");  // Muestra un mensaje de error en caso de excepción
     }
 }
 
+// Método para cerrar la conexión a la base de datos
 void DataBaseManager::disconnect() {
     try {
-        this->conn->Close();
+        this->conn->Close();  // Cierra la conexión
     }
     catch (Exception^ e) {
-        MessageBox::Show("Error desconectando");
+        MessageBox::Show("Error desconectando");  // Muestra un mensaje de error en caso de excepción
     }
 }
 
+// Método para obtener la conexión actual a la base de datos
 MySqlConnection^ DataBaseManager::getConnection() {
-	return this->conn;
+    return this->conn;  // Retorna el objeto de conexión actual
 }

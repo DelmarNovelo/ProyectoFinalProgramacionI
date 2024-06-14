@@ -69,24 +69,7 @@ namespace ProyectoFinalProgramacion {
 			}
 		}
 
-
-
 	protected:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	private:
 		/// <summary>

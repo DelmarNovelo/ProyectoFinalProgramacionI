@@ -247,6 +247,7 @@ namespace ProyectoFinalProgramacion {
 		llenarTabla();
 	}
 
+	// Abre un dialogo para crear un nuevo pasajero
 	private: System::Void btnCrearPasajero_Click(System::Object^ sender, System::EventArgs^ e) {
 		NewPassengerDialog^ dialog = gcnew NewPassengerDialog();
 		dialog->ShowDialog();

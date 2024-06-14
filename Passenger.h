@@ -2,11 +2,13 @@
 
 using namespace System;
 
+// Clase que representa a un pasajero con sus detalles personales.
 ref class Passenger {
 public:
-	Passenger(String^ firstName, String^ lastName, String^ phone, String^ address, String^ birthDate, String^ passportNumber);
+    // Constructor que inicializa un pasajero con su nombre, apellido, teléfono, dirección, fecha de nacimiento y número de pasaporte.
+    Passenger(String^ firstName, String^ lastName, String^ phone, String^ address, String^ birthDate, String^ passportNumber);
 
-    // Propiedades
+    // Propiedad para obtener y establecer el ID del pasajero.
     property int Id {
         int get() {
             return id;
@@ -16,6 +18,7 @@ public:
         }
     }
 
+    // Propiedad para obtener y establecer el nombre del pasajero.
     property String^ FirstName {
         String^ get() {
             return firstName;
@@ -25,6 +28,7 @@ public:
         }
     }
 
+    // Propiedad para obtener y establecer el apellido del pasajero.
     property String^ LastName {
         String^ get() {
             return lastName;
@@ -34,12 +38,14 @@ public:
         }
     }
 
+    // Propiedad para obtener el nombre completo del pasajero.
     property String^ FullName {
         String^ get() {
             return firstName + " " + lastName;
         }
     }
 
+    // Propiedad para obtener y establecer el teléfono del pasajero.
     property String^ Phone {
         String^ get() {
             return phone;
@@ -49,6 +55,7 @@ public:
         }
     }
 
+    // Propiedad para obtener y establecer la dirección del pasajero.
     property String^ Address {
         String^ get() {
             return address;
@@ -58,6 +65,7 @@ public:
         }
     }
 
+    // Propiedad para obtener y establecer la fecha de nacimiento del pasajero.
     property String^ BirthDate {
         String^ get() {
             return birthDate;
@@ -67,6 +75,7 @@ public:
         }
     }
 
+    // Propiedad para obtener y establecer el número de pasaporte del pasajero.
     property String^ PassportNumber {
         String^ get() {
             return passportNumber;
@@ -77,6 +86,7 @@ public:
     }
 
 private:
+    // Campos privados para almacenar los detalles del pasajero.
     property int id;
     property String^ firstName;
     property String^ lastName;
@@ -85,4 +95,3 @@ private:
     property String^ birthDate;
     property String^ passportNumber;
 };
-

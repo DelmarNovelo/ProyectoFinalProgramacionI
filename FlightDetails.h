@@ -508,8 +508,8 @@ namespace ProyectoFinalProgramacion {
 
 		}
 
+		// Agregar columnas de botones al DataGridView
 		void InitializeCustomComponents() {
-			// Agregar columnas de botones al DataGridView
 			DataGridViewButtonColumn^ editButtonColumn = gcnew DataGridViewButtonColumn();
 			editButtonColumn->HeaderText = "PASE DE ABORDAJE";
 			editButtonColumn->Name = "generate";
@@ -548,6 +548,7 @@ namespace ProyectoFinalProgramacion {
 		}
 	}
 
+	// Abre un nuevo dialogo para crear una nueva reservacion
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		NewReservationDialog^ newReservationDialog = gcnew NewReservationDialog(this->flightId);
 		newReservationDialog->ShowDialog();
@@ -555,13 +556,17 @@ namespace ProyectoFinalProgramacion {
 		this->getFlightDetails();
 
 	}
+
+	// En el evento que se ejecuta al cargar el formulario obtiene los datos del vuelo
 	private: System::Void FlightDetails_Load(System::Object^ sender, System::EventArgs^ e) {
 		this->getFlightDetails();
 	}
 
 	void getFlightDetails() {
+		// Hace la consulta a la BD de los detalles del vuelo
 		Flight^ flightDetails = FlightDAO::getFlightDetails(this->flightId, dbManager);
 
+		// Si viene una respuesta valida, coloca la informacion en los labels
 		if (flightDetails != nullptr) {
 			flightNumberLabel->Text = flightDetails->FlightNumber;
 			dateLabel->Text = flightDetails->Date;
@@ -576,6 +581,7 @@ namespace ProyectoFinalProgramacion {
 			// Llenar el DataGridView con las reservaciones
 			reservationsDataGridView->Rows->Clear();
 
+			// Carga la informacion de las reservaciones en un gridview
 			for each (Reservation ^ reservation in flightDetails->Reservations) {
 				DataGridViewRow^ row = gcnew DataGridViewRow();
 				row->CreateCells(reservationsDataGridView);
@@ -620,6 +626,7 @@ namespace ProyectoFinalProgramacion {
 		}
 	}
 
+	// Abre el dialogo para visualizar los detalles del pase de abordaje
 	void openBoardingPassDetailsDialog(int boardingPassId) {
 		BoardingPassDetails^ boardingPassDetails = gcnew BoardingPassDetails(boardingPassId);
 

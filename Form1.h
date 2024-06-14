@@ -120,6 +120,8 @@ namespace CppCLRWinFormsProject {
 			this->button2->BackColor = System::Drawing::Color::OrangeRed;
 			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->button2->ForeColor = System::Drawing::Color::White;
 			this->button2->Location = System::Drawing::Point(184, 14);
 			this->button2->Name = L"button2";
@@ -134,6 +136,8 @@ namespace CppCLRWinFormsProject {
 			this->button1->BackColor = System::Drawing::Color::OrangeRed;
 			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->button1->ForeColor = System::Drawing::Color::White;
 			this->button1->Location = System::Drawing::Point(52, 14);
 			this->button1->Name = L"button1";
@@ -174,41 +178,64 @@ namespace CppCLRWinFormsProject {
 
 		}
 		
-		String^ connectionString = "Server=localhost;port=3306;database=proyecto_final_programacion;uid=delmar;password=D39LKC#LS992@SLD8";
-		MySqlConnection^ conn = gcnew MySqlConnection(connectionString);
 #pragma endregion
+		// Método genérico para cargar un formulario dentro de un panel contenedor
 		template<class T>
 		void loadForm(T form) {
+			// Verificar si hay controles en el panel contenedor y remover el primero si existe
 			if (this->panelContenedor->Controls->Count > 0) {
 				this->panelContenedor->Controls->RemoveAt(0);
 			}
+
+			// Configurar el formulario para que no sea de nivel superior y se ajuste al tamaño del panel contenedor
 			form->TopLevel = false;
 			form->Dock = DockStyle::Fill;
+
+			// Agregar el formulario al panel contenedor
 			this->panelContenedor->Controls->Add(form);
+
+			// Establecer el formulario como Tag del panel contenedor
 			this->panelContenedor->Tag = form;
+
+			// Mostrar el formulario
 			form->Show();
 		}
 
-		private: System::Void Form1_Load(System::Object^ sender, System::EventArgs^ e) {
-			this->loadForm(gcnew ProyectoFinalProgramacion::PassengersContainer);
-		}
+		// Evento que se dispara al cargar el formulario principal (Form1)
+private: System::Void Form1_Load(System::Object^ sender, System::EventArgs^ e) {
+	// Cargar inicialmente el formulario de contenedor de pasajeros
+	this->loadForm(gcnew ProyectoFinalProgramacion::PassengersContainer);
+}
 
-		private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-			this->loadForm(gcnew ProyectoFinalProgramacion::PassengersContainer);
-		}
+	   // Evento que se dispara al hacer clic en el botón 1
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Cargar el formulario de contenedor de pasajeros al hacer clic en el botón 1
+	this->loadForm(gcnew ProyectoFinalProgramacion::PassengersContainer);
+}
 
-		private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	   // Evento que se dispara al hacer clic en el botón 2
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Crear una instancia del contenedor de vuelos
+	ProyectoFinalProgramacion::FlightsContainer^ flightsContainer = gcnew ProyectoFinalProgramacion::FlightsContainer();
 
-			ProyectoFinalProgramacion::FlightsContainer^ flightsContainer = gcnew ProyectoFinalProgramacion::FlightsContainer();
-			flightsContainer->LoadFormEvent += gcnew LoadFormEventHandler(this, &Form1::OnLoadFormEvent);
-			this->loadForm(flightsContainer);
-		}
+	// Suscribirse al evento de carga de formulario del contenedor de vuelos
+	flightsContainer->LoadFormEvent += gcnew LoadFormEventHandler(this, &Form1::OnLoadFormEvent);
 
-		private: void OnLoadFormEvent(String^ formName, int id) {
-			if (formName == "FlightDetailsForm") {
-				ProyectoFinalProgramacion::FlightDetails^ flightDetails = gcnew ProyectoFinalProgramacion::FlightDetails(id);
-				this->loadForm(flightDetails);
-			}
-		}
+	// Cargar el contenedor de vuelos dentro del panel contenedor principal
+	this->loadForm(flightsContainer);
+}
+
+	   // Manejador de evento personalizado que se dispara cuando se carga un formulario dentro del contenedor
+private: void OnLoadFormEvent(String^ formName, int id) {
+	// Verificar si el nombre del formulario es "FlightDetailsForm"
+	if (formName == "FlightDetailsForm") {
+		// Crear una instancia del formulario de detalles de vuelo con el ID proporcionado
+		ProyectoFinalProgramacion::FlightDetails^ flightDetails = gcnew ProyectoFinalProgramacion::FlightDetails(id);
+
+		// Cargar el formulario de detalles de vuelo dentro del panel contenedor principal
+		this->loadForm(flightDetails);
+	}
+}
+
 };
 }

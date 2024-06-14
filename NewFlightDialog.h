@@ -490,167 +490,189 @@ namespace ProyectoFinalProgramacion {
 		}
 #pragma endregion
 
-		private: System::Void NewFlightDialog_Load(System::Object^ sender, System::EventArgs^ e) {
-			fillAirportComboBox(originComboBox);
-			fillAirportComboBox(destinationComboBox);
-			fillAirlineComboBox();
-			fillAirplaneComboBox();
+		// Método que se ejecuta al cargar el formulario "NewFlightDialog"
+private: System::Void NewFlightDialog_Load(System::Object^ sender, System::EventArgs^ e) {
+	// Llenar los ComboBox de origen y destino con datos de aeropuertos
+	fillAirportComboBox(originComboBox);
+	fillAirportComboBox(destinationComboBox);
+
+	// Llenar el ComboBox de aerolíneas con datos de aerolíneas
+	fillAirlineComboBox();
+
+	// Llenar el ComboBox de aviones con datos de aviones
+	fillAirplaneComboBox();
+}
+
+	   // Método que se ejecuta al hacer clic en el botón "Guardar"
+private: System::Void saveFlight_Click(System::Object^ sender, System::EventArgs^ e) {
+	try
+	{
+		// Obtener los IDs seleccionados de los ComboBox
+		int airlineId = getSelectedComboBoxId("airline", airlineComboBox);
+		int airplaneId = getSelectedComboBoxId("airplane", airplaneComboBox);
+		int originId = getSelectedComboBoxId("origin", originComboBox);
+		int destinationId = getSelectedComboBoxId("destination", destinationComboBox);
+
+		// Formatear las fechas y tiempos seleccionados
+		String^ boardingTime = Utils::FormatTimeToHHmmss(boardingDatePicker->Value);
+		String^ departureTime = Utils::FormatTimeToHHmmss(departureDatePicker->Value);
+		String^ arrivalTime = Utils::FormatTimeToHHmmss(arrivalDatePicker->Value);
+		String^ date = Utils::FormatDateToyyyyMMdd(datePicker->Value);
+
+		// Generar el número de vuelo usando el código IATA de la aerolínea seleccionada
+		String^ flightNumber = generateFlightCode(airlineId);
+
+		// Validaciones de selección de ComboBox
+		if (airlineId < 1) {
+			throw gcnew Exception("Seleccione una aerolínea");
+		}
+		if (airplaneId < 1) {
+			throw gcnew Exception("Seleccione un avión");
+		}
+		if (originId < 1) {
+			throw gcnew Exception("Seleccione un origen");
+		}
+		if (destinationId < 1) {
+			throw gcnew Exception("Seleccione un destino");
+		}
+		if (originId == destinationId) {
+			throw gcnew Exception("El origen debe ser diferente al destino");
 		}
 
-		private: System::Void saveFlight_Click(System::Object^ sender, System::EventArgs^ e) {
-			try
-			{
-				int airlineId = getSelectedComboBoxId("airline", airlineComboBox);
-				int airplaneId = getSelectedComboBoxId("airplane", airplaneComboBox);
-				int originId = getSelectedComboBoxId("origin", originComboBox);
-				int destinationId = getSelectedComboBoxId("destination", destinationComboBox);
-				String^ boardingTime = Utils::FormatTimeToHHmmss(boardingDatePicker->Value);
-				String^ departureTime = Utils::FormatTimeToHHmmss(departureDatePicker->Value);
-				String^ arrivalTime = Utils::FormatTimeToHHmmss(arrivalDatePicker->Value);
-				String^ date = Utils::FormatDateToyyyyMMdd(datePicker->Value);
-				String^ flightNumber = generateFlightCode(airlineId);
+		// Crear un objeto Flight con los datos obtenidos
+		Flight^ flight = gcnew Flight(
+			flightNumber,
+			date,
+			boardingTime,
+			departureTime,
+			arrivalTime,
+			airlineId,
+			airplaneId,
+			originId,
+			destinationId
+		);
 
-				if (airlineId < 1) {
-					throw gcnew Exception("Seleccione una aerolinea");
-				}
+		// Llamar al método para crear el vuelo en la base de datos
+		FlightDAO::createFlight(flight, dbManager);
 
-				if (airplaneId < 1) {
-					throw gcnew Exception("Seleccione un avión");
-				}
+		// Cerrar el formulario actual después de guardar
+		this->Close();
+	}
+	catch (Exception^ e)
+	{
+		// Mostrar mensaje de error en caso de excepción
+		MessageBox::Show(e->Message);
+	}
+}
 
-				if (originId < 1) {
-					throw gcnew Exception("Seleccione un origen");
-				}
+	   // Método para llenar un ComboBox con datos de aeropuertos
+	   void fillAirportComboBox(ComboBox^ comboBox) {
+		   AirportDAO^ dao = gcnew AirportDAO();
+		   List<Airport^>^ airports = dao->getAirports(dbManager);
 
-				if (destinationId < 1) {
-					throw gcnew Exception("Seleccione un destino");
-				}
+		   comboBox->Items->Clear();
+		   comboBox->DisplayMember = "Name";
+		   comboBox->ValueMember = "Id";
 
-				if (originId == destinationId) {
-					throw gcnew Exception("El origen debe ser diferente al destino");
-				}
+		   // Agregar cada aeropuerto al ComboBox
+		   for each (Airport ^ airport in airports) {
+			   comboBox->Items->Add(airport);
+		   }
+	   }
 
-				Flight^ flight = gcnew Flight(
-					flightNumber,
-					date,
-					boardingTime,
-					departureTime,
-					arrivalTime,
-					airlineId,
-					airplaneId,
-					originId,
-					destinationId
-				);
+	   // Método para llenar el ComboBox de aerolíneas con datos de aerolíneas
+	   void fillAirlineComboBox() {
+		   AirlineDAO^ dao = gcnew AirlineDAO();
+		   airlines = dao->getAirlines(dbManager);
 
-				FlightDAO::createFlight(flight, dbManager);
+		   airlineComboBox->Items->Clear();
+		   airlineComboBox->DisplayMember = "Name";
+		   airlineComboBox->ValueMember = "Id";
 
-				this->Close();
-			}
-			catch (Exception^ e)
-			{
-				MessageBox::Show(e->Message);
-			}
-		}
+		   // Agregar cada aerolínea al ComboBox
+		   for each (Airline ^ airline in airlines) {
+			   airlineComboBox->Items->Add(airline);
+		   }
+	   }
 
-		void fillAirportComboBox(ComboBox^ comboBox) {
-			AirportDAO^ dao = gcnew AirportDAO();
-			List<Airport^>^ airports = dao->getAirports(dbManager);
+	   // Método para llenar el ComboBox de aviones con datos de aviones
+	   void fillAirplaneComboBox() {
+		   AirplaneDAO^ dao = gcnew AirplaneDAO();
+		   List<Airplane^>^ airplanes = dao->getAirplanes(dbManager);
 
-			comboBox->Items->Clear();
-			comboBox->DisplayMember = "Name";
-			comboBox->ValueMember = "Id";
+		   airplaneComboBox->Items->Clear();
+		   airplaneComboBox->DisplayMember = "Model";
+		   airplaneComboBox->ValueMember = "Id";
 
-			for each (Airport ^ airport in airports) {
-				comboBox->Items->Add(airport);
-			}
-		}
+		   // Agregar cada avión al ComboBox
+		   for each (Airplane ^ airplane in airplanes) {
+			   airplaneComboBox->Items->Add(airplane);
+		   }
+	   }
 
-		void fillAirlineComboBox() {
-			AirlineDAO^ dao = gcnew AirlineDAO();
-			airlines = dao->getAirlines(dbManager);
+	   // Método para obtener el ID seleccionado en un ComboBox según el tipo de entidad
+	   int getSelectedComboBoxId(String^ entity, ComboBox^ comboBox) {
+		   int selectedId = 0;
 
-			airlineComboBox->Items->Clear();
-			airlineComboBox->DisplayMember = "Name";
-			airlineComboBox->ValueMember = "Id";
+		   try
+		   {
+			   // Obtener el elemento seleccionado del ComboBox
+			   Object^ selectedItem = comboBox->SelectedItem;
 
-			for each (Airline^ airline in airlines) {
-				airlineComboBox->Items->Add(airline);
-			}
-		}
-		 
-		void fillAirplaneComboBox() {
-			AirplaneDAO^ dao = gcnew AirplaneDAO();
-			List<Airplane^>^ airplanes = dao->getAirplanes(dbManager);
+			   // Determinar el tipo de entidad y obtener el ID correspondiente
+			   if (entity == "airline") {
+				   if (selectedItem != nullptr) {
+					   Airline^ selectedAirline = dynamic_cast<Airline^>(selectedItem);
+					   selectedId = selectedAirline->Id;
+				   }
+			   }
+			   else if (entity == "airplane") {
+				   if (selectedItem != nullptr) {
+					   Airplane^ selectedAirplane = dynamic_cast<Airplane^>(selectedItem);
+					   selectedId = selectedAirplane->Id;
+				   }
+			   }
+			   else if (entity == "destination") {
+				   if (selectedItem != nullptr) {
+					   Airport^ selectedAirport = dynamic_cast<Airport^>(selectedItem);
+					   selectedId = selectedAirport->Id;
+				   }
+			   }
+			   else if (entity == "origin") {
+				   if (selectedItem != nullptr) {
+					   Airport^ selectedAirport = dynamic_cast<Airport^>(selectedItem);
+					   selectedId = selectedAirport->Id;
+				   }
+			   }
 
-			airplaneComboBox->Items->Clear();
-			airplaneComboBox->DisplayMember = "Model";
-			airplaneComboBox->ValueMember = "Id";
+			   return selectedId;
+		   }
+		   catch (Exception^ e)
+		   {
+			   // Mostrar mensaje de error en caso de excepción
+			   MessageBox::Show(e->Message->ToString());
+		   }
+	   }
 
-			for each (Airplane^ airplane in airplanes) {
-				airplaneComboBox->Items->Add(airplane);
-			}
-		}
+	   // Método para generar el código de vuelo usando el código IATA de la aerolínea seleccionada
+	   String^ generateFlightCode(int airlineId) {
+		   String^ airlineIataCode = "";
 
-		int getSelectedComboBoxId(String^ entity, ComboBox^ comboBox) {
-			int selectedId = 0;
+		   // Buscar el código IATA de la aerolínea seleccionada
+		   for each (Airline ^ airline in airlines) {
+			   if (airline->Id == airlineId) {
+				   airlineIataCode = airline->IataCode;
+				   break;
+			   }
+		   }
 
-			try
-			{
-				Object^ selectedItem = comboBox->SelectedItem;
+		   // Generar números aleatorios para el código de vuelo
+		   String^ randomNumber1 = Utils::GenarateRandomNumbers(1, 99).ToString();
+		   String^ randomNumber2 = Utils::GenarateRandomNumbers(1, 999).ToString();
 
-				if (entity == "airline") {
-					if (selectedItem != nullptr) {
-						Airline^ selectedAirline = dynamic_cast<Airline^>(selectedItem);
-
-						selectedId = selectedAirline->Id;
-					}
-				}
-				else if (entity == "airplane") {
-					if (selectedItem != nullptr) {
-						Airplane^ selectedAirplane = dynamic_cast<Airplane^>(selectedItem);
-
-						selectedId = selectedAirplane->Id;
-					}
-				}
-				else if (entity == "destination") {
-					if (selectedItem != nullptr) {
-						Airport^ selectedAirport = dynamic_cast<Airport^>(selectedItem);
-
-						selectedId = selectedAirport->Id;
-					}
-				}
-				else if (entity == "origin") {
-					if (selectedItem != nullptr) {
-						Airport^ selectedAirport = dynamic_cast<Airport^>(selectedItem);
-
-						selectedId = selectedAirport->Id;
-					}
-				}
-
-				return selectedId;
-			}
-			catch (Exception^ e)
-			{
-				MessageBox::Show(e->Message->ToString());
-			}
-		}
-
-		String^ generateFlightCode(int airlineId) {
-			String^ airlineIataCode = "";
-
-			for each (Airline ^ airline in airlines) {
-				if (airline->Id == airlineId) {
-					airlineIataCode = airline->IataCode;
-					
-					break;
-				}
-			}
-
-			String^ randomNumber1 = Utils::GenarateRandomNumbers(1, 99).ToString();
-			String^ randomNumber2 = Utils::GenarateRandomNumbers(1, 999).ToString();
-
-			return airlineIataCode + randomNumber1 + " " + randomNumber2;
-		}
+		   // Combinar el código IATA y los números aleatorios para formar el código de vuelo
+		   return airlineIataCode + randomNumber1 + " " + randomNumber2;
+	   }
 
 };
 }

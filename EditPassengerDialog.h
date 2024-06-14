@@ -400,10 +400,12 @@ namespace ProyectoFinalProgramacion {
 		}
 #pragma endregion
 	private: System::Void EditarPasajeroDialog_Load(System::Object^ sender, System::EventArgs^ e) {
+		// Obtener los detalles del pasajero utilizando el ID del pasajero y el gestor de base de datos
 		Passenger^ passenger = PassengerDAO::getPassengerDetails(this->passengerId, this->dbManager);
 
 		try
 		{
+			// Asignar los valores obtenidos del pasajero a los campos de texto del formulario
 			textBoxFirstName->Text = passenger->FirstName;
 			textBoxLastName->Text = passenger->LastName;
 			textBoxPhone->Text = passenger->Phone;
@@ -413,6 +415,7 @@ namespace ProyectoFinalProgramacion {
 		}
 		catch (Exception^ e)
 		{
+			// Mostrar un mensaje de error si ocurre alguna excepción durante la carga de datos
 			MessageBox::Show(e->Message);
 		}
 	}
