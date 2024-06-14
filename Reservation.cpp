@@ -9,7 +9,8 @@ Reservation::Reservation(int passengerId, int flightId, double price, String^ re
 	this->TicketNumber = ticketNumber;
 };
 
-Reservation::Reservation(String^ passengerName, String^ passportNumber, double price, String^ reservationDate) {
+Reservation::Reservation(int boardingPassId, String^ passengerName, String^ passportNumber, double price, String^ reservationDate) {
+	this->BoardingPassId = boardingPassId;
 	this->PassengerName = passengerName;
 	this->PassportNumber = passportNumber;
 	this->Price = price;

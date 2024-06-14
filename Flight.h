@@ -7,9 +7,9 @@ using namespace System::Collections::Generic;
 ref class Flight
 {
 public:
-	Flight(String^ flightNumber, String^ date, String^ departureTime, String^ arrivalTime, int airlineId, int airplaneId, int originId, int destinationId);
+	Flight(String^ flightNumber, String^ date, String^ boardingTime, String^ departureTime, String^ arrivalTime, int airlineId, int airplaneId, int originId, int destinationId);
 
-	Flight(int id, String^ flightNumber, String^ date, String^ departureTime, String^ arrivalTime, String^ airlineName, String^ airplaneModel, String^ originName, String^ destinationName);
+	Flight(int id, String^ flightNumber, String^ date, String^ boardingTime, String^ departureTime, String^ arrivalTime, String^ airlineName, String^ airplaneModel, String^ originName, String^ destinationName);
 
 	property List<Reservation^>^ Reservations {
 		List<Reservation^>^ get() {
@@ -44,6 +44,15 @@ public:
 		}
 		void set(String^ value) {
 			date = value;
+		}
+	}
+
+	property String^ BoardingTime {
+		String^ get() {
+			return boardingTime;
+		}
+		void set(String^ value) {
+			boardingTime = value;
 		}
 	}
 
@@ -141,6 +150,7 @@ private:
 	property int id;
 	property String^ flightNumber;
 	property String^ date;
+	property String^ boardingTime;
 	property String^ departureTime;
 	property String^ arrivalTime;
 	property int airlineId;

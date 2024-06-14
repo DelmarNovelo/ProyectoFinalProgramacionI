@@ -9,13 +9,14 @@ void FlightDAO::createFlight(Flight^ flight, DataBaseManager^ dbManager) {
 	{
 		dbManager->connect();
 
-		String^ query = "INSERT INTO flight (flight_number, date, departure_time, arrival_time, airline_id, airplane_id, origin_id, destination_id) " +
-			"VALUES (@flightNumber, @date, @departureTime, @arrivalTime, @airlineId, @airplaneId, @originId, @destinationId)";
+		String^ query = "INSERT INTO flight (flight_number, date, boarding_time, departure_time, arrival_time, airline_id, airplane_id, origin_id, destination_id) " +
+			"VALUES (@flightNumber, @date, @boardingTime, @departureTime, @arrivalTime, @airlineId, @airplaneId, @originId, @destinationId)";
 
 		MySqlCommand^ cmd = gcnew MySqlCommand(query, dbManager->getConnection());
 
 		cmd->Parameters->AddWithValue("@flightNumber", flight->FlightNumber);
 		cmd->Parameters->AddWithValue("@date", flight->Date);
+		cmd->Parameters->AddWithValue("@boardingTime", flight->BoardingTime);
 		cmd->Parameters->AddWithValue("@departureTime", flight->DepartureTime);
 		cmd->Parameters->AddWithValue("@arrivalTime", flight->ArrivalTime);
 		cmd->Parameters->AddWithValue("@airlineId", flight->AirlineId);
@@ -84,7 +85,7 @@ List<Flight^>^ FlightDAO::getFlightsInComboBox(DataBaseManager^ dbManager) {
 			int id = reader->GetInt32(0);
 			String^ flightCode = reader->GetString(1);
 
-			Flight^ flight = gcnew Flight(flightCode, "", "", "", 0, 0, 0, 0);
+			Flight^ flight = gcnew Flight(flightCode, "", "", "", "", 0, 0, 0, 0);
 			flight->Id = id;
 
 			flights->Add(flight);
@@ -114,7 +115,8 @@ Flight^ FlightDAO::getFlightDetails(int flightId, DataBaseManager^ dbManager) {
 		String^ query = "SELECT " +
 			"f.id AS flight_id, " +
 			"f.flight_number, " +
-			"f.date, " +
+			"f.date, " + 
+			"f.boarding_time, " + 
 			"f.departure_time, " +
 			"f.arrival_time, " +
 			"a.name AS airline_name, " +
@@ -123,18 +125,21 @@ Flight^ FlightDAO::getFlightDetails(int flightId, DataBaseManager^ dbManager) {
 			"d.name AS destination_name, " +
 			"r.id AS reservation_id, " +
 			"r.price, " +
-			"r.reservation_date, " +
+			"r.reservation_date, " + 
 			"p.id AS passenger_id, " +
 			"CONCAT(p.first_name, ' ', p.last_name) AS passenger_name, " +
-			"p.passport_number " +
-			"FROM flight f " +
+			"p.passport_number, " +
+			"bp.id AS boarding_pass_id " +
+			"FROM flight f " + 
 			"LEFT JOIN reservation r ON f.id = r.flight_id " +
-			"LEFT JOIN  passenger p ON r.passenger_id = p.id " +
-			"LEFT JOIN airline a ON f.airline_id = a.id " +
+			"LEFT JOIN passenger p ON r.passenger_id = p.id " + 
+			"LEFT JOIN airline a ON f.airline_id = a.id " + 
 			"LEFT JOIN airplane ap ON f.airplane_id = ap.id " +
 			"LEFT JOIN airport o ON f.origin_id = o.id " +
 			"LEFT JOIN airport d ON f.destination_id = d.id " +
-			"WHERE f.id = @flightId ";
+			"LEFT JOIN boarding_pass bp ON r.id = bp.reservation_id " +
+			"WHERE f.id = @flightId"; 
+
 
 		MySqlCommand^ cmd = gcnew MySqlCommand(query, dbManager->getConnection());
 		cmd->Parameters->AddWithValue("@flightId", flightId);
@@ -147,6 +152,7 @@ Flight^ FlightDAO::getFlightDetails(int flightId, DataBaseManager^ dbManager) {
 					reader->GetInt32("flight_id"),
 					reader->GetString("flight_number"),
 					reader->GetDateTime("date").ToString("dd-MM-yyyy"),
+					reader->GetTimeSpan("boarding_time").ToString(),
 					reader->GetTimeSpan("departure_time").ToString(),
 					reader->GetTimeSpan("arrival_time").ToString(),
 					reader->GetString("airline_name"),
@@ -157,7 +163,10 @@ Flight^ FlightDAO::getFlightDetails(int flightId, DataBaseManager^ dbManager) {
 			}
 
 			if (!reader->IsDBNull(reader->GetOrdinal("reservation_id"))) {
+				int boardingPassId = !reader->IsDBNull(reader->GetOrdinal("boarding_pass_id")) ? reader->GetInt32("boarding_pass_id") : 0;
+
 				Reservation^ reservation = gcnew Reservation(
+					boardingPassId,
 					reader->GetString("passenger_name"),
 					reader->GetString("passport_number"),
 					reader->GetDouble("price"),

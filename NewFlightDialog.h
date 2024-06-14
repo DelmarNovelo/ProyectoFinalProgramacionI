@@ -41,6 +41,10 @@ namespace ProyectoFinalProgramacion {
 	private: System::Windows::Forms::Label^ label13;
 	private: System::Windows::Forms::Label^ label14;
 	private: System::Windows::Forms::Label^ label15;
+	private: System::Windows::Forms::Label^ label16;
+	private: System::Windows::Forms::Label^ label17;
+	private: System::Windows::Forms::DateTimePicker^ boardingDatePicker;
+
 
 		List<Airline^>^ airlines;
 	protected:
@@ -119,6 +123,9 @@ namespace ProyectoFinalProgramacion {
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->label16 = (gcnew System::Windows::Forms::Label());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->boardingDatePicker = (gcnew System::Windows::Forms::DateTimePicker());
 			this->SuspendLayout();
 			// 
 			// datePicker
@@ -402,12 +409,53 @@ namespace ProyectoFinalProgramacion {
 			this->label15->TabIndex = 29;
 			this->label15->Text = L"* Campos requeridos";
 			// 
+			// label16
+			// 
+			this->label16->AutoSize = true;
+			this->label16->BackColor = System::Drawing::Color::Transparent;
+			this->label16->Font = (gcnew System::Drawing::Font(L"Century Gothic", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label16->ForeColor = System::Drawing::Color::Red;
+			this->label16->Location = System::Drawing::Point(411, 17);
+			this->label16->Name = L"label16";
+			this->label16->Size = System::Drawing::Size(15, 20);
+			this->label16->TabIndex = 32;
+			this->label16->Text = L"*";
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label17->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label17->Location = System::Drawing::Point(297, 18);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(115, 16);
+			this->label17->TabIndex = 31;
+			this->label17->Text = L"Hora de abordaje:";
+			// 
+			// boardingDatePicker
+			// 
+			this->boardingDatePicker->CustomFormat = L"";
+			this->boardingDatePicker->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->boardingDatePicker->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->boardingDatePicker->Location = System::Drawing::Point(300, 40);
+			this->boardingDatePicker->Name = L"boardingDatePicker";
+			this->boardingDatePicker->ShowUpDown = true;
+			this->boardingDatePicker->Size = System::Drawing::Size(244, 23);
+			this->boardingDatePicker->TabIndex = 30;
+			// 
 			// NewFlightDialog
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(556, 350);
+			this->Controls->Add(this->label16);
+			this->Controls->Add(this->label17);
+			this->Controls->Add(this->boardingDatePicker);
 			this->Controls->Add(this->label15);
 			this->Controls->Add(this->label14);
 			this->Controls->Add(this->label13);
@@ -456,6 +504,7 @@ namespace ProyectoFinalProgramacion {
 				int airplaneId = getSelectedComboBoxId("airplane", airplaneComboBox);
 				int originId = getSelectedComboBoxId("origin", originComboBox);
 				int destinationId = getSelectedComboBoxId("destination", destinationComboBox);
+				String^ boardingTime = Utils::FormatTimeToHHmmss(boardingDatePicker->Value);
 				String^ departureTime = Utils::FormatTimeToHHmmss(departureDatePicker->Value);
 				String^ arrivalTime = Utils::FormatTimeToHHmmss(arrivalDatePicker->Value);
 				String^ date = Utils::FormatDateToyyyyMMdd(datePicker->Value);
@@ -484,6 +533,7 @@ namespace ProyectoFinalProgramacion {
 				Flight^ flight = gcnew Flight(
 					flightNumber,
 					date,
+					boardingTime,
 					departureTime,
 					arrivalTime,
 					airlineId,
@@ -492,11 +542,9 @@ namespace ProyectoFinalProgramacion {
 					destinationId
 				);
 
-				FlightDAO^ dao = gcnew FlightDAO();
+				FlightDAO::createFlight(flight, dbManager);
 
-				// dao->createFlight(flight, dbManager);
-
-				// this->Close();
+				this->Close();
 			}
 			catch (Exception^ e)
 			{

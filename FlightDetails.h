@@ -51,6 +51,10 @@ namespace ProyectoFinalProgramacion {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ price;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ reservation_date;
 	private: System::Windows::Forms::Label^ label10;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ BoardingPassId;
+	private: System::Windows::Forms::Label^ boardingTimeLabel;
+
+	private: System::Windows::Forms::Label^ label12;
 
 
 
@@ -76,9 +80,9 @@ namespace ProyectoFinalProgramacion {
 	protected:
 
 	protected:
-	private: System::Windows::Forms::Button^ button1;
+
 	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
+
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
@@ -116,10 +120,11 @@ namespace ProyectoFinalProgramacion {
 			this->passport_number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->price = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->reservation_date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->BoardingPassId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->boardingTimeLabel = (gcnew System::Windows::Forms::Label());
+			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->destinationLabel = (gcnew System::Windows::Forms::Label());
 			this->originLabel = (gcnew System::Windows::Forms::Label());
 			this->airplaneLabel = (gcnew System::Windows::Forms::Label());
@@ -159,9 +164,9 @@ namespace ProyectoFinalProgramacion {
 			dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
 			this->reservationsDataGridView->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
 			this->reservationsDataGridView->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->reservationsDataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
+			this->reservationsDataGridView->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(5) {
 				this->passenger,
-					this->passport_number, this->price, this->reservation_date
+					this->passport_number, this->price, this->reservation_date, this->BoardingPassId
 			});
 			dataGridViewCellStyle6->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
 			dataGridViewCellStyle6->BackColor = System::Drawing::SystemColors::Window;
@@ -211,19 +216,11 @@ namespace ProyectoFinalProgramacion {
 			this->reservation_date->HeaderText = L"FECHA RESERVACIÓN";
 			this->reservation_date->Name = L"reservation_date";
 			// 
-			// button1
+			// BoardingPassId
 			// 
-			this->button1->BackColor = System::Drawing::Color::Red;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->button1->ForeColor = System::Drawing::Color::White;
-			this->button1->Location = System::Drawing::Point(362, 361);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(122, 42);
-			this->button1->TabIndex = 1;
-			this->button1->Text = L"Eliminar Vuelo";
-			this->button1->UseVisualStyleBackColor = false;
+			this->BoardingPassId->HeaderText = L"BoardingPassId";
+			this->BoardingPassId->Name = L"BoardingPassId";
+			this->BoardingPassId->Visible = false;
 			// 
 			// button2
 			// 
@@ -241,23 +238,11 @@ namespace ProyectoFinalProgramacion {
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &FlightDetails::button2_Click);
 			// 
-			// button3
-			// 
-			this->button3->BackColor = System::Drawing::Color::Teal;
-			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button3->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->button3->ForeColor = System::Drawing::Color::White;
-			this->button3->Location = System::Drawing::Point(490, 361);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(122, 42);
-			this->button3->TabIndex = 3;
-			this->button3->Text = L"Editar Vuelo";
-			this->button3->UseVisualStyleBackColor = false;
-			// 
 			// panel1
 			// 
 			this->panel1->BackColor = System::Drawing::Color::White;
+			this->panel1->Controls->Add(this->boardingTimeLabel);
+			this->panel1->Controls->Add(this->label12);
 			this->panel1->Controls->Add(this->destinationLabel);
 			this->panel1->Controls->Add(this->originLabel);
 			this->panel1->Controls->Add(this->airplaneLabel);
@@ -267,8 +252,6 @@ namespace ProyectoFinalProgramacion {
 			this->panel1->Controls->Add(this->dateLabel);
 			this->panel1->Controls->Add(this->flightNumberLabel);
 			this->panel1->Controls->Add(this->label8);
-			this->panel1->Controls->Add(this->button3);
-			this->panel1->Controls->Add(this->button1);
 			this->panel1->Controls->Add(this->label7);
 			this->panel1->Controls->Add(this->label6);
 			this->panel1->Controls->Add(this->label5);
@@ -281,12 +264,34 @@ namespace ProyectoFinalProgramacion {
 			this->panel1->Size = System::Drawing::Size(621, 413);
 			this->panel1->TabIndex = 4;
 			// 
+			// boardingTimeLabel
+			// 
+			this->boardingTimeLabel->AutoSize = true;
+			this->boardingTimeLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->boardingTimeLabel->Location = System::Drawing::Point(137, 96);
+			this->boardingTimeLabel->Name = L"boardingTimeLabel";
+			this->boardingTimeLabel->Size = System::Drawing::Size(47, 17);
+			this->boardingTimeLabel->TabIndex = 17;
+			this->boardingTimeLabel->Text = L"label3";
+			// 
+			// label12
+			// 
+			this->label12->AutoSize = true;
+			this->label12->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label12->Location = System::Drawing::Point(13, 96);
+			this->label12->Name = L"label12";
+			this->label12->Size = System::Drawing::Size(128, 16);
+			this->label12->TabIndex = 16;
+			this->label12->Text = L"Hora de abordaje:";
+			// 
 			// destinationLabel
 			// 
 			this->destinationLabel->AutoSize = true;
 			this->destinationLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->destinationLabel->Location = System::Drawing::Point(131, 319);
+			this->destinationLabel->Location = System::Drawing::Point(131, 364);
 			this->destinationLabel->Name = L"destinationLabel";
 			this->destinationLabel->Size = System::Drawing::Size(54, 17);
 			this->destinationLabel->TabIndex = 15;
@@ -297,7 +302,7 @@ namespace ProyectoFinalProgramacion {
 			this->originLabel->AutoSize = true;
 			this->originLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->originLabel->Location = System::Drawing::Point(127, 272);
+			this->originLabel->Location = System::Drawing::Point(127, 317);
 			this->originLabel->Name = L"originLabel";
 			this->originLabel->Size = System::Drawing::Size(54, 17);
 			this->originLabel->TabIndex = 14;
@@ -308,7 +313,7 @@ namespace ProyectoFinalProgramacion {
 			this->airplaneLabel->AutoSize = true;
 			this->airplaneLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->airplaneLabel->Location = System::Drawing::Point(58, 226);
+			this->airplaneLabel->Location = System::Drawing::Point(58, 271);
 			this->airplaneLabel->Name = L"airplaneLabel";
 			this->airplaneLabel->Size = System::Drawing::Size(54, 17);
 			this->airplaneLabel->TabIndex = 13;
@@ -319,7 +324,7 @@ namespace ProyectoFinalProgramacion {
 			this->airlineLabel->AutoSize = true;
 			this->airlineLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->airlineLabel->Location = System::Drawing::Point(85, 181);
+			this->airlineLabel->Location = System::Drawing::Point(85, 226);
 			this->airlineLabel->Name = L"airlineLabel";
 			this->airlineLabel->Size = System::Drawing::Size(54, 17);
 			this->airlineLabel->TabIndex = 12;
@@ -330,7 +335,7 @@ namespace ProyectoFinalProgramacion {
 			this->arrivalTimeLabel->AutoSize = true;
 			this->arrivalTimeLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->arrivalTimeLabel->Location = System::Drawing::Point(108, 136);
+			this->arrivalTimeLabel->Location = System::Drawing::Point(129, 181);
 			this->arrivalTimeLabel->Name = L"arrivalTimeLabel";
 			this->arrivalTimeLabel->Size = System::Drawing::Size(54, 17);
 			this->arrivalTimeLabel->TabIndex = 11;
@@ -341,7 +346,7 @@ namespace ProyectoFinalProgramacion {
 			this->departureTimeLabel->AutoSize = true;
 			this->departureTimeLabel->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->departureTimeLabel->Location = System::Drawing::Point(99, 95);
+			this->departureTimeLabel->Location = System::Drawing::Point(119, 140);
 			this->departureTimeLabel->Name = L"departureTimeLabel";
 			this->departureTimeLabel->Size = System::Drawing::Size(54, 17);
 			this->departureTimeLabel->TabIndex = 10;
@@ -374,7 +379,7 @@ namespace ProyectoFinalProgramacion {
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label8->Location = System::Drawing::Point(13, 319);
+			this->label8->Location = System::Drawing::Point(13, 364);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(120, 16);
 			this->label8->TabIndex = 7;
@@ -385,7 +390,7 @@ namespace ProyectoFinalProgramacion {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(13, 272);
+			this->label7->Location = System::Drawing::Point(13, 317);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(115, 16);
 			this->label7->TabIndex = 6;
@@ -396,7 +401,7 @@ namespace ProyectoFinalProgramacion {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(13, 226);
+			this->label6->Location = System::Drawing::Point(13, 271);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(48, 16);
 			this->label6->TabIndex = 5;
@@ -407,7 +412,7 @@ namespace ProyectoFinalProgramacion {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(13, 181);
+			this->label5->Location = System::Drawing::Point(13, 226);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(75, 16);
 			this->label5->TabIndex = 4;
@@ -418,22 +423,22 @@ namespace ProyectoFinalProgramacion {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(13, 136);
+			this->label4->Location = System::Drawing::Point(13, 181);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(98, 16);
+			this->label4->Size = System::Drawing::Size(119, 16);
 			this->label4->TabIndex = 3;
-			this->label4->Text = L"Hora llegada:";
+			this->label4->Text = L"Hora de llegada:";
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Century Gothic", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(13, 95);
+			this->label3->Location = System::Drawing::Point(13, 140);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(87, 16);
+			this->label3->Size = System::Drawing::Size(108, 16);
 			this->label3->TabIndex = 2;
-			this->label3->Text = L"Hora salida:";
+			this->label3->Text = L"Hora de salida:";
 			// 
 			// label2
 			// 
@@ -536,9 +541,9 @@ namespace ProyectoFinalProgramacion {
 
 			// Verifica si se hizo clic en el botón de Eliminar
 			if (columnName == "eliminar") {
-				int reservationId = Convert::ToInt32(reservationsDataGridView->Rows[e->RowIndex]->Tag);
+				int boardingPassId = Convert::ToInt32(reservationsDataGridView->Rows[e->RowIndex]->Cells[4]->Value);
 
-				openBoardingPassDetailsDialog(reservationId);
+				openBoardingPassDetailsDialog(boardingPassId);
 			}
 		}
 	}
@@ -546,6 +551,9 @@ namespace ProyectoFinalProgramacion {
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		NewReservationDialog^ newReservationDialog = gcnew NewReservationDialog(this->flightId);
 		newReservationDialog->ShowDialog();
+
+		this->getFlightDetails();
+
 	}
 	private: System::Void FlightDetails_Load(System::Object^ sender, System::EventArgs^ e) {
 		this->getFlightDetails();
@@ -557,6 +565,7 @@ namespace ProyectoFinalProgramacion {
 		if (flightDetails != nullptr) {
 			flightNumberLabel->Text = flightDetails->FlightNumber;
 			dateLabel->Text = flightDetails->Date;
+			boardingTimeLabel->Text = flightDetails->BoardingTime;
 			departureTimeLabel->Text = flightDetails->DepartureTime;
 			arrivalTimeLabel->Text = flightDetails->ArrivalTime;
 			airlineLabel->Text = flightDetails->AirlineName;
@@ -574,6 +583,9 @@ namespace ProyectoFinalProgramacion {
 				row->Cells[1]->Value = reservation->PassportNumber;
 				row->Cells[2]->Value = reservation->Price.ToString("F2");
 				row->Cells[3]->Value = reservation->ReservationDate;
+
+				row->Cells[4]->Value = reservation->BoardingPassId;
+
 				row->Tag = reservation->Id;  // Usar Tag para almacenar el ID de la reserva
 				reservationsDataGridView->Rows->Add(row);
 			}
@@ -597,6 +609,9 @@ namespace ProyectoFinalProgramacion {
 				BoardingPass^ boardingPass = gcnew BoardingPass(reservationId, "A1", Utils::FormatDateToyyyyMMdd(currentDate));
 
 				BoardingPassDAO::insertBoardingPass(boardingPass, dbManager);
+
+				this->getFlightDetails();
+
 			}
 			catch (Exception^ e)
 			{

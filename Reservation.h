@@ -7,7 +7,7 @@ ref class Reservation
 public:
 	Reservation(int passengerId, int flightId, double price, String^ reservationDate, String^ bookingReference, String^ ticketNumber);
 
-	Reservation(String^ passengerName, String^ passportNumber, double price, String^ reservationDate);
+	Reservation(int boardingPassId, String^ passengerName, String^ passportNumber, double price, String^ reservationDate);
 
 	property int Id {
 		int get() {
@@ -90,6 +90,15 @@ public:
 		}
 	}
 
+	property int BoardingPassId {
+		int get() {
+			return boardingPassId;
+		}
+		void set(int value) {
+			boardingPassId = value;
+		}
+	}
+
 private:
 	property int id;
 	property int passengerId;
@@ -97,6 +106,7 @@ private:
 	property String^ passportNumber;
 	property int flightId;
 	property double price;
+	int boardingPassId;
 	property String^ reservationDate;
 	property String^ bookingReference;
 	property String^ ticketNumber;

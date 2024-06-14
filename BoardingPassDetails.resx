@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label25.Text" xml:space="preserve">
+    <value>Presentarse en el aeropuerto 2 horas antes de la salida de su vuelo. Hora de abordaje 45 minutos antes de la salida del vuelo. La puerta cierra 15 minutos antes de la salida. / Show up at the airport 2 hours before departure of your flight. Boarding time 45 minutes before flight departure. Door cloosing 15 minutes before departure.</value>
+  </data>
 </root>
