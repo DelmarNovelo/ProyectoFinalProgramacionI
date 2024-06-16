@@ -10,7 +10,7 @@ using namespace MySql::Data::MySqlClient;  // Espacio de nombres para MySQL Conn
 // Constructor de la clase DataBaseManager
 DataBaseManager::DataBaseManager() {
     // Configura la cadena de conexión a la base de datos MySQL
-    this->connectionString = "Server=localhost;port=3306;database=proyecto_final_programacion;uid=delmar;password=D39LKC#LS992@SLD8";
+    this->connectionString = "Server=localhost;port=3306;database=proyecto_final_programacion;uid=delmar;password=D39LKC#LS992@SLD8;SslMode=none;";
     // Crea una nueva instancia de MySqlConnection utilizando la cadena de conexión
     this->conn = gcnew MySqlConnection(this->connectionString);
 }
